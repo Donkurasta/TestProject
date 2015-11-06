@@ -1,6 +1,10 @@
 Django
 Jinja2
+Markdown
+apiclient
 django-filter
 djangorestframework
-secretary
 psycopg2
+requests
+secretary
+setuptools
