@@ -32,7 +32,7 @@ class TasksList(generics.ListCreateAPIView):
         if self.request.user.is_staff == True:
             return Tasks.objects.all()
         else:
-            return Tasks.objects.filter(owner=self.request.user)
+            return Tasks.objects.filter(owner = self.request.user)
 
     queryset = Tasks.objects.all()
     filter_backends = (filters.DjangoFilterBackend,)
@@ -48,7 +48,7 @@ class TasksDetail(generics.RetrieveUpdateDestroyAPIView):
         if self.request.user.is_staff == True:
             return Tasks.objects.all()
         else:
-            return Tasks.objects.filter(owner=self.request.user)
+            return Tasks.objects.filter(owner = self.request.user)
 
 #=======================================================================================================================
 #Admin
@@ -121,13 +121,13 @@ class PrintReport(APIView):
 
     def get(self, request):
         engine = Renderer()
-        template =  os.path.join(settings.BASE_DIR, 'static', 'template.odt')
+        template = os.path.join(settings.BASE_DIR, 'static', 'template.odt')
         context = {
-        'taskList':Tasks.objects.filter(owner=self.request.user),
-        'DOC_NAME':'Reropt',
+        'taskList' : Tasks.objects.filter(owner=self.request.user),
+        'DOC_NAME' : 'Reropt',
         }
         result = engine.render(template, **context)
-        response = HttpResponse(content_type='application/odt',content=result)
+        response = HttpResponse(content_type = 'application/odt',content = result)
         response['Content-Disposition'] = 'attachment; filename="renders.odt"'
         return response
 

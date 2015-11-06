@@ -17,7 +17,7 @@ class TasksTestCase(unittest.TestCase):
     def setUpClass(cls):
         super(TasksTestCase, cls).setUpClass()
         cls.client = APIClient()
-        cls.user = User.objects.create_user('Ivan','ex@mple.re',123123)
+        cls.user = User.objects.create_user('Ivan', 'ex@mple.re', 123123)
         cls.task = Tasks(pk=2,task_des = 'des',task_date = None,owner = cls.user,task_ok = False)
         cls.task.save()
 
@@ -31,22 +31,22 @@ class TasksTestCase(unittest.TestCase):
 
     def setUp(self):
         super(TasksTestCase, self).setUp()
-        user = User.objects.get(username='Ivan')
+        user = User.objects.get(username = 'Ivan')
         self.client.force_authenticate(user=user)
 
 
     def test_create_task(self):
-        response = self.client.post(reverse('TaskList'),{"task_des":"des"},format='json')
+        response = self.client.post(reverse('TaskList'),{"task_des":"des"},format = 'json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
 
     def test_get_task_list(self):
-        response = self.client.get(reverse('TaskList'),  format='json')
+        response = self.client.get(reverse('TaskList'),  format = 'json')
         self.assertEqual(response.status_code,status.HTTP_200_OK)
 
 
     def test_get_task_detail(self):
-        response_detail = self.client.get(reverse('TaskDetail',args=[self.task.id]),  format='json')
+        response_detail = self.client.get(reverse('TaskDetail',args=[self.task.id]),  format = 'json')
         self.assertEqual(response_detail.status_code,status.HTTP_200_OK)
 
 
@@ -115,7 +115,6 @@ class UserTest(unittest.TestCase):
     def test_userSwitchPassword(self):
         response = self.client.patch(reverse('UserPassword',args = [self.user.id]), {'password':'123123','new_password':'123'})
         self.assertEqual(response.status_code,status.HTTP_200_OK)
-
 
 
 
