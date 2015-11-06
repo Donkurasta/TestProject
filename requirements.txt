@@ -3,3 +3,4 @@ Jinja2
 django-filter
 djangorestframework
 secretary
+psycopg2
