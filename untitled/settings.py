@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for untitled project.
 
@@ -12,6 +13,8 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import socket
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -26,6 +29,17 @@ SECRET_KEY = 'r$axgfmfkafjm-m!$!pb#u_ds=nml#$y#3#wq2##*=fqc)ff2d'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+if socket.gethostname() == 'Имя домена для продакшена':
+    from untitled.production_settings import *
+else:
+    from untitled.developer_settings import *
+
+
+try:
+    from untitled.local_settings import *
+except(ImportError):
+        pass
 
 
 # Application definition
@@ -79,10 +93,10 @@ WSGI_APPLICATION = 'untitled.wsgi.application'
 
 DATABASES = {
      'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ProjectU',
-        'USER': 'postgres',
-        'PASSWORD': 'q7w8e918111996',
+        'ENGINE': DATABASE_ENGINE,
+        'NAME': DATABASE_NAME,
+        'USER': DATABASE_USER,
+        'PASSWORD': DATABASE_PASSWORD,
     }
 }
 
